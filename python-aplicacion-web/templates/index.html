@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contact V15</title>
+
+	{% with messages = get_flashed_messages() %}
+  	{% if messages %}
+    <script>
+      var messages = {{ messages | safe }};
+      for (var i=0; i<messages.length; i++) {
+        alert(messages[i]);
+      }
+    </script>
+  	{% endif %}
+	{% endwith %}
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons/favicon.ico') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animsition/css/animsition.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/daterangepicker/daterangepicker.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+<!--===============================================================================================-->
+</head>
+<body onload="SetDate();">
+
+	<div class="container-contact100">
+		<div class="contact100-map" style="background-image: url({{ url_for('static', filename='images/bg.jpg') }}); opacity: 0.5" data-scrollwhell="0" data-draggable="1"></div>
+
+		<div class="wrap-contact100">
+			<div class="contact100-form-title" style="background-image: url({{ url_for('static', filename='images/bg-02.jpg') }});">
+				<span class="contact100-form-title-1">
+					TFM Bioinformática - Hospital Virgen de la Arrixaca
+				</span>
+
+				<span class="contact100-form-title-2">
+					Lector de documentos PDF para el contenedor de datos MongoDB
+				</span>
+			</div>
+
+			
+			<form class="contact100-form validate-form" method=POST enctype=multipart/form-data>
+				<div class="wrap-input100 validate-input" data-validate="Por favor, introduzca una etiqueta">
+					<span class="label-input100">Etiqueta: </span>
+					<input class="input100" type="text" name="etiqueta" placeholder="Introduzca la etiqueta del documento">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Por favor, seleccione una fecha válida">
+					<span class="label-input100">Fecha:</span>
+					<input class="input100" id="fecha" type="date" name="fecha">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate="Por favor, seleccione una opción">
+					<span class="label-input100">Tipo:</span>
+					<select class="input100" name="tipo" id="tipo">
+						<option value="aferesis">Aféresis</option>
+						<option value="deplecioncd3+">Depleción CD3+</option>
+						<option value="deplecioncd19+cd3+">Depleción CD19+CD3+</option>
+						<option value="deplecioncd19+cd3tc">Depleción CD19+CD3TCR</option>
+						<option value="deplecioncd45ra">Depleción CD45RA</option>
+						<option value="descongelacion">Descongelación e infusión</option>
+						<option value="feconline">FEC online</option>
+						<option value="ficoll">Ficoll</option>
+						<option value="harvest">Harvest</option>
+						<option value="infusion">Infusión directa</option>
+						<option value="lavado">Lavado e infusión</option>
+						<option value="sangria">Sangría y Buffy coat</option>
+						<option value="seleccioncd34+">Selección CD34+</option>
+						<option value="seleccioncd56+">Selección CD56+</option>
+						<option value="seleccioncd133">Selección CD133+</option>
+					</select>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate="Por favor, suba un fichero válido">
+					<span class="label-input100">Fichero:</span>
+					<input class="input100" type="file" name="fichero">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<input class="contact100-form-btn" type="submit" id="enviar" name="enviar" value="Enviar">
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
+	<script src="{{ url_for('static', filename='js/map-custom.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+	</script>
+	
+	<script type="text/javascript">
+		function SetDate(){
+			var date = new Date();
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			
+			if (month < 10) month = "0" + month
+			if (day < 10) day = "0" + day;
+			
+			var today = year + "-" + month + "-" + day;
+			document.getElementById('fecha').value = today;
+		}
+	</script>
+
+</body>
+</html>
